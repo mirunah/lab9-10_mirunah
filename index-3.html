@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miruna Haiduc's Cookie Examples</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.code {
+  background-color: #f8f9fa;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Welcome, Miruna Haiduc!</h1>
+  <p>Here are some examples of handling cookies:</p>
+  
+  <!-- Example 1: Simple usage -->
+  <button class="button" onclick="showCookies()">Show cookies</button>
+  <button class="button" onclick="clearOutputCookies()">Clear</button>
+  <div class="code" id="cookies"></div>
+
+  <!-- Example 2: Get a sample cookie named test2 -->
+  <button class="button" onclick="showCookieValue()">Show cookie value</button>
+  <button class="button" onclick="clearOutputCookieValue()">Clear</button>
+  <div class="code" id="cookie-value"></div>
+
+  <!-- Example 3: Do something only once -->
+  <button class="button" onclick="doOnce()">Only do something once</button>
+  <button class="button" onclick="clearOutputDoOnce()">Clear</button>
+  <div class="code" id="do-once"></div>
+
+  <!-- Example 4: Reset the previous cookie -->
+  <button class="button" onclick="resetOnce()">Reset only once cookie</button>
+  <button class="button" onclick="clearOutputResetOnce()">Clear</button>
+  <div class="code" id="reset-once"></div>
+
+  <!-- Example 5: Check a cookie existence -->
+  <button class="button" onclick="checkACookieExists()">Check a cookie exists</button>
+  <button class="button" onclick="clearOutputACookieExists()">Clear</button>
+  <div class="code" id="a-cookie-existence"></div>
+
+  <!-- Example 6: Check that a cookie has a specific value -->
+  <button class="button" onclick="checkCookieHasASpecificValue()">Check that a cookie has a specific value</button>
+  <button class="button" onclick="clearASpecificValueOfTheCookie()">Clear</button>
+  <div class="code" id="a-specific-value-of-the-cookie"></div>
+</div>
+
+<script>
+// Example 1: Simple usage
+document.cookie = "name=oeschger; SameSite=None; Secure";
+document.cookie = "favorite_food=tripe; SameSite=None; Secure";
+
+function showCookies() {
+  const output = document.getElementById("cookies");
+  output.textContent = `> ${document.cookie}`;
+}
+
+function clearOutputCookies() {
+  const output = document.getElementById("cookies");
+  output.textContent = "";
+}
+
+// Example 2: Get a sample cookie named test2
+document.cookie = "test1=Hello; SameSite=None; Secure";
+document.cookie = "test2=World; SameSite=None; Secure";
+
+const cookieValue = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("test2="))
+  ?.split("=")[1];
+
+function showCookieValue() {
+  const output = document.getElementById("cookie-value");
+  output.textContent = `> ${cookieValue}`;
+}
+
+function clearOutputCookieValue() {
+  const output = document.getElementById("cookie-value");
+  output.textContent = "";
+}
+
+// Example 3: Do something only once
+function doOnce() {
+  if (
+    !document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("doSomethingOnlyOnce"))
+  ) {
+    document.cookie =
+      "doSomethingOnlyOnce=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure";
+
+    const output = document.getElementById("do-once");
+    output.textContent = "> Do something here!";
+  }
+}
+
+function clearOutputDoOnce() {
+  const output = document.getElementById("do-once");
+  output.textContent = "";
+}
+
+// Example 4: Reset the previous cookie
+function resetOnce() {
+  document.cookie =
+    "doSomethingOnlyOnce=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
+
+  const output = document.getElementById("reset-once");
+  output.textContent = "> Reset!";
+}
+
+function clearOutputResetOnce() {
+  const output = document.getElementById("reset-once");
+  output.textContent = "";
+}
+
+// Example 5: Check a cookie existence
+document.cookie = "reader=1; SameSite=None; Secure";
+
+function checkACookieExists() {
+  if (
+    document.cookie.split(";").some((item) => item.trim().startsWith("reader="))
+  ) {
+    const output = document.getElementById("a-cookie-existence");
+    output.textContent = '> The cookie "reader" exists';
+  }
+}
+
+function clearOutputACookieExists() {
+  const output = document.getElementById("a-cookie-existence");
+  output.textContent = "";
+}
+
+// Example 6: Check that a cookie has a specific value
+function checkCookieHasASpecificValue() {
+  if (document.cookie.split(";").some((item) => item.includes("reader=1"))) {
+    const output = document.getElementById("a-specific-value-of-the-cookie");
+    output.textContent = '> The cookie "reader" has a value of "1"';
+  }
+}
+
+function clearASpecificValueOfTheCookie() {
+  const output = document.getElementById("a-specific-value-of-the-cookie");
+  output.textContent = "";
+}
+</script>
+
+</body>
+</html>
